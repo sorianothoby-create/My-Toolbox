@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ToolBox AI Studio</title>
+  <link rel="stylesheet" href="ai-studio.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">T</span> ToolBox <span class="muted">/ AI Studio</span></a>
+    <span class="status"><span class="status-dot"></span> AI Studio</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">CREATE SOMETHING NEW</p>
+      <h1>Your ideas, <span>powered by AI.</span></h1>
+      <p class="hero-copy">Write content, generate artwork, or turn a prompt into a short video — all in one studio.</p>
+    </section>
+
+    <nav class="tabs" aria-label="AI tool type">
+      <button class="tab active" data-tab="text" type="button">✍️ Text</button>
+      <button class="tab" data-tab="image" type="button">🎨 Image</button>
+      <button class="tab" data-tab="video" type="button">🎬 Video</button>
+    </nav>
+
+    <section class="studio-grid">
+      <div class="panel prompt-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">AI WORKSPACE</p><h2 id="tool-title">Text generator</h2></div>
+          <span class="pill" id="model-pill">Text</span>
+        </div>
+
+        <form id="studio-form">
+          <label for="prompt">Describe what you want</label>
+          <textarea id="prompt" rows="7" maxlength="4000" required placeholder="Write a fun YouTube Shorts script about a cat who becomes a chef..."></textarea>
+          <div class="field-row">
+            <div class="field">
+              <label for="style">Style</label>
+              <select id="style">
+                <option value="creative">Creative</option>
+                <option value="professional">Professional</option>
+                <option value="simple">Simple and clear</option>
+                <option value="cinematic">Cinematic</option>
+              </select>
+            </div>
+            <div class="field" id="ratio-field">
+              <label for="ratio">Format</label>
+              <select id="ratio">
+                <option value="9:16">Portrait (9:16)</option>
+                <option value="16:9">Landscape (16:9)</option>
+              </select>
+            </div>
+          </div>
+          <p class="hint" id="tool-hint">Best for stories, descriptions, ideas, summaries, and short-form video scripts.</p>
+          <button class="primary" id="generate" type="submit"><span>Generate</span><span aria-hidden="true">↗</span></button>
+          <p class="privacy-note">Your prompt is sent to the configured AI backend. Don’t enter passwords or private personal information.</p>
+        </form>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="result-head"><h2>Result</h2><span id="result-status" class="result-status">Waiting for prompt</span></div>
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">✦</div>
+          <h3>Your creation will appear here</h3>
+          <p>Choose a tool, enter a prompt, and hit Generate.</p>
+        </div>
+        <div id="loading" class="loading hidden"><span class="spinner"></span><span id="loading-text">Creating your result…</span></div>
+        <pre id="text-result" class="text-result hidden"></pre>
+        <div id="image-result-wrap" class="media-result hidden"><img id="image-result" alt="AI generated result"><a id="image-download" class="download-link" download="toolbox-ai-image.png">Download image ↓</a></div>
+        <div id="video-result-wrap" class="media-result hidden"><video id="video-result" controls playsinline></video><a id="video-download" class="download-link" download="toolbox-ai-video.mp4">Download video ↓</a></div>
+        <div id="error" class="error hidden" role="alert"></div>
+        <div class="result-actions hidden" id="text-actions"><button class="secondary" id="copy-result" type="button">Copy text</button><button class="secondary" id="download-text" type="button">Download .txt</button></div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <span class="notice-icon">ⓘ</span>
+      <div><strong>Usage and costs</strong><p>Text and image generation may have free-tier limits or usage charges. Video generation is paid and can cost more per request. Check your provider’s current pricing and set billing limits before sharing this site publicly.</p></div>
+    </section>
+    <footer>ToolBox AI Studio · Keep creating responsibly.</footer>
+  </main>
+  <script src="ai-studio.js"></script>
+</body>
+</html>
