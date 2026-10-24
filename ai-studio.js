@@ -3,7 +3,7 @@
   Example: https://toolbox-ai-backend.onrender.com
   Do not put your Gemini API key in this file.
 */
-const API_BASE = "https://YOUR-BACKEND.onrender.com";
+const API_BASE = "https://toolbox-ai-backend.onrender.com";
 
 const tabs = [...document.querySelectorAll(".tab")];
 const promptEl = document.querySelector("#prompt");
