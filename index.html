@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d14">
+  <meta name="description" content="ToolBox — handy text, calculator, QR, unit, color, and image tools in one place.">
+  <title>ToolBox — All-in-One Tools</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ToolBox home"><span class="brand-mark">T</span><span>ToolBox</span></a>
+    <div class="top-actions">
+      <span class="status-dot"></span><span class="muted small">Free browser tools</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow"><span class="spark">✦</span> YOUR EVERYDAY TOOLKIT</div>
+      <h1>Small tools.<br><span class="gradient-text">Big convenience.</span></h1>
+      <p class="hero-copy">Everything useful, all in one place. Pick a tool and get things done — no account needed.</p>
+      <label class="search-wrap" for="toolSearch">
+        <span aria-hidden="true">⌕</span>
+        <input id="toolSearch" type="search" placeholder="Search tools, e.g. word counter..." autocomplete="off">
+        <kbd>SEARCH</kbd>
+      </label>
+      <div class="quick-tags">
+        <button class="tag" data-filter="text">Text</button>
+        <button class="tag" data-filter="calculators">Calculators</button>
+        <button class="tag" data-filter="qr">QR codes</button>
+        <button class="tag" data-filter="units">Converters</button>
+        <button class="tag" data-filter="color">Colors</button>
+        <button class="tag" data-filter="image">Images</button>
+        <button class="tag clear-tag" data-filter="all">Show all</button>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">THE TOOLKIT</p><h2>Explore tools</h2></div>
+        <span id="toolCount" class="count-pill">6 categories</span>
+      </div>
+      <div class="tool-grid" id="toolGrid">
+        <article class="tool-card" data-category="text" data-search="text word counter character count uppercase lowercase title case remove extra spaces reverse text">
+          <div class="card-top"><span class="tool-icon purple">Aa</span><span class="card-arrow">↗</span></div>
+          <h3>Text tools</h3><p>Count words, change letter case, and clean up text in seconds.</p>
+          <div class="card-footer"><span class="mini-chip">6 tools</span><button class="open-tool" data-open="textPanel">Open tool <span>→</span></button></div>
+        </article>
+        <article class="tool-card" data-category="calculators" data-search="calculator basic arithmetic percentage add subtract multiply divide">
+          <div class="card-top"><span class="tool-icon blue">＋</span><span class="card-arrow">↗</span></div>
+          <h3>Calculators</h3><p>Do everyday calculations and find percentages quickly.</p>
+          <div class="card-footer"><span class="mini-chip">2 tools</span><button class="open-tool" data-open="calcPanel">Open tool <span>→</span></button></div>
+        </article>
+        <article class="tool-card" data-category="qr" data-search="qr code generator link url text download">
+          <div class="card-top"><span class="tool-icon green">▦</span><span class="card-arrow">↗</span></div>
+          <h3>QR code generator</h3><p>Turn a link or short message into a scannable QR code.</p>
+          <div class="card-footer"><span class="mini-chip">Download PNG</span><button class="open-tool" data-open="qrPanel">Open tool <span>→</span></button></div>
+        </article>
+        <article class="tool-card" data-category="units" data-search="unit converter length distance weight mass temperature celsius fahrenheit kilometers miles kilograms pounds">
+          <div class="card-top"><span class="tool-icon orange">⇄</span><span class="card-arrow">↗</span></div>
+          <h3>Unit converter</h3><p>Convert length, weight, and temperature with live results.</p>
+          <div class="card-footer"><span class="mini-chip">3 categories</span><button class="open-tool" data-open="unitPanel">Open tool <span>→</span></button></div>
+        </article>
+        <article class="tool-card" data-category="color" data-search="color picker hex rgb color code palette">
+          <div class="card-top"><span class="tool-icon pink">◉</span><span class="card-arrow">↗</span></div>
+          <h3>Color picker</h3><p>Pick a color visually and copy its HEX or RGB value.</p>
+          <div class="card-footer"><span class="mini-chip">HEX + RGB</span><button class="open-tool" data-open="colorPanel">Open tool <span>→</span></button></div>
+        </article>
+        <article class="tool-card" data-category="image" data-search="image tools resize compress convert png jpeg webp image preview">
+          <div class="card-top"><span class="tool-icon cyan">▧</span><span class="card-arrow">↗</span></div>
+          <h3>Image tools</h3><p>Resize images, convert formats, and download a new copy.</p>
+          <div class="card-footer"><span class="mini-chip">Local processing</span><button class="open-tool" data-open="imagePanel">Open tool <span>→</span></button></div>
+        </article>
+      </div>
+      <p id="noResults" class="empty-state" hidden>No tools match that search. Try another word.</p>
+    </section>
+
+    <section class="workspace" aria-live="polite">
+      <div class="workspace-heading">
+        <div><p class="eyebrow">READY WHEN YOU ARE</p><h2 id="workspaceTitle">Choose a tool to get started</h2></div>
+        <button id="closePanel" class="icon-button" hidden aria-label="Close tool">×</button>
+      </div>
+
+      <div class="tool-panel" id="textPanel" hidden>
+        <div class="panel-intro"><span class="tool-icon purple">Aa</span><div><h3>Text tools</h3><p>Paste or type text below. Results update as you work.</p></div></div>
+        <label class="field-label" for="textInput">Your text</label>
+        <textarea id="textInput" rows="6" placeholder="Type or paste your text here..."></textarea>
+        <div class="stats-grid">
+          <div class="stat"><span>Words</span><strong id="wordCount">0</strong></div>
+          <div class="stat"><span>Characters</span><strong id="charCount">0</strong></div>
+          <div class="stat"><span>No spaces</span><strong id="noSpaceCount">0</strong></div>
+          <div class="stat"><span>Sentences</span><strong id="sentenceCount">0</strong></div>
+        </div>
+        <div class="button-row">
+          <button class="btn" data-text-action="upper">UPPERCASE</button>
+          <button class="btn" data-text-action="lower">lowercase</button>
+          <button class="btn" data-text-action="title">Title Case</button>
+          <button class="btn" data-text-action="trim">Clean spaces</button>
+          <button class="btn" data-text-action="reverse">Reverse text</button>
+          <button class="btn primary" data-text-action="copy">Copy text</button>
+          <button class="btn subtle" data-text-action="clear">Clear</button>
+        </div>
+        <p class="feedback" id="textFeedback" role="status"></p>
+      </div>
+
+      <div class="tool-panel" id="calcPanel" hidden>
+        <div class="panel-intro"><span class="tool-icon blue">＋</span><div><h3>Calculators</h3><p>Basic math and percentage calculations.</p></div></div>
+        <div class="subtool">
+          <h4>Basic calculator</h4>
+          <div class="calc-display" id="calcDisplay" aria-live="polite">0</div>
+          <div class="calc-grid" id="calcButtons">
+            <button class="calc-key muted-key" data-calc="clear">AC</button><button class="calc-key muted-key" data-calc="back">⌫</button><button class="calc-key operator" data-calc="%">%</button><button class="calc-key operator" data-calc="/">÷</button>
+            <button class="calc-key" data-calc="7">7</button><button class="calc-key" data-calc="8">8</button><button class="calc-key" data-calc="9">9</button><button class="calc-key operator" data-calc="*">×</button>
+            <button class="calc-key" data-calc="4">4</button><button class="calc-key" data-calc="5">5</button><button class="calc-key" data-calc="6">6</button><button class="calc-key operator" data-calc="-">−</button>
+            <button class="calc-key" data-calc="1">1</button><button class="calc-key" data-calc="2">2</button><button class="calc-key" data-calc="3">3</button><button class="calc-key operator" data-calc="+">+</button>
+            <button class="calc-key wide" data-calc="0">0</button><button class="calc-key" data-calc=".">.</button><button class="calc-key equals" data-calc="=">=</button>
+          </div>
+        </div>
+        <div class="subtool">
+          <h4>Percentage calculator</h4>
+          <div class="form-grid">
+            <label><span class="field-label">What percent?</span><input id="percentRate" type="number" value="20" step="any"></label>
+            <label><span class="field-label">Of this number</span><input id="percentBase" type="number" value="150" step="any"></label>
+          </div>
+          <div class="result-line"><span>Result</span><strong id="percentResult">30</strong></div>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="qrPanel" hidden>
+        <div class="panel-intro"><span class="tool-icon green">▦</span><div><h3>QR code generator</h3><p>Make a QR code for a URL, contact note, or any short text.</p></div></div>
+        <label class="field-label" for="qrText">Text or URL</label><textarea id="qrText" rows="3" placeholder="https://example.com"></textarea>
+        <div class="button-row"><button class="btn primary" id="makeQR">Generate QR code</button><button class="btn" id="downloadQR" disabled>Download PNG</button></div>
+        <div id="qrOutput" class="qr-output"><p class="muted">Your QR code will appear here.</p></div>
+        <p class="feedback" id="qrFeedback" role="status"></p>
+        <p class="tiny-note">The QR library is loaded from a CDN, so generating QR codes requires an internet connection.</p>
+      </div>
+
+      <div class="tool-panel" id="unitPanel" hidden>
+        <div class="panel-intro"><span class="tool-icon orange">⇄</span><div><h3>Unit converter</h3><p>Choose a category and units; the result updates instantly.</p></div></div>
+        <label class="field-label" for="unitCategory">Category</label>
+        <select id="unitCategory"><option value="length">Length</option><option value="weight">Weight</option><option value="temperature">Temperature</option></select>
+        <div class="form-grid unit-grid">
+          <label><span class="field-label">From</span><select id="unitFrom"></select></label>
+          <label><span class="field-label">To</span><select id="unitTo"></select></label>
+        </div>
+        <label class="field-label" for="unitValue">Value</label><input id="unitValue" type="number" value="1" step="any">
+        <div class="result-line"><span>Converted result</span><strong id="unitResult">—</strong></div>
+        <button class="btn" id="swapUnits">⇄ Swap units</button>
+      </div>
+
+      <div class="tool-panel" id="colorPanel" hidden>
+        <div class="panel-intro"><span class="tool-icon pink">◉</span><div><h3>Color picker</h3><p>Choose a color and copy its code.</p></div></div>
+        <div class="color-layout">
+          <div class="color-preview" id="colorPreview"><input type="color" id="colorInput" value="#8b5cf6" aria-label="Choose color"></div>
+          <div class="color-values">
+            <label><span class="field-label">HEX</span><div class="copy-field"><input id="hexValue" value="#8B5CF6" readonly><button class="btn" data-copy-field="hexValue">Copy</button></div></label>
+            <label><span class="field-label">RGB</span><div class="copy-field"><input id="rgbValue" value="rgb(139, 92, 246)" readonly><button class="btn" data-copy-field="rgbValue">Copy</button></div></label>
+          </div>
+        </div>
+        <p class="feedback" id="colorFeedback" role="status"></p>
+      </div>
+
+      <div class="tool-panel" id="imagePanel" hidden>
+        <div class="panel-intro"><span class="tool-icon cyan">▧</span><div><h3>Image tools</h3><p>Resize or convert an image in your browser. Your image is not uploaded to a server.</p></div></div>
+        <label class="upload-zone" for="imageFile"><span class="upload-icon">↑</span><strong>Choose an image</strong><span class="muted small">PNG, JPEG, WebP, or other browser-supported images</span><input id="imageFile" type="file" accept="image/*"></label>
+        <div id="imageEditor" hidden>
+          <div class="image-preview-wrap"><img id="imagePreview" alt="Selected image preview"></div>
+          <p id="imageInfo" class="muted small"></p>
+          <div class="form-grid">
+            <label><span class="field-label">Width (px)</span><input id="imageWidth" type="number" min="1" max="10000" step="1"></label>
+            <label><span class="field-label">Height (px)</span><input id="imageHeight" type="number" min="1" max="10000" step="1"></label>
+          </div>
+          <label class="check-line"><input id="keepRatio" type="checkbox" checked> Keep aspect ratio</label>
+          <div class="form-grid">
+            <label><span class="field-label">Output format</span><select id="imageFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option></select></label>
+            <label><span class="field-label">JPEG/WebP quality: <span id="qualityLabel">0.90</span></span><input id="imageQuality" type="range" min="0.1" max="1" value="0.9" step="0.05"></label>
+          </div>
+          <div class="button-row"><button class="btn primary" id="processImage">Resize / convert image</button><a class="btn download-link" id="downloadImage" hidden download="toolbox-image.png">Download image</a></div>
+          <p class="feedback" id="imageFeedback" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer><a class="brand footer-brand" href="#"><span class="brand-mark">T</span><span>ToolBox</span></a><p>Made for everyday tasks. Your tools, all in one place.</p><span class="copyright">© <span id="year"></span> ToolBox</span></footer>
+  </main>
+</body>
+</html>
